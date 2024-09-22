@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="root"></div>
+
+
+    <script 
+         crossorigin 
+         src="https://unpkg.com/react@18/umd/react.development.js">
+    </script>
+    <script 
+      crossorigin 
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js">
+    </script>
+
+
+    <!-- write heading using h1 tag in react -->
+    <script>
+        const heading = React.createElement("h1", " ", "Hello world")
+        
+        const root = ReactDOM.createRoot(document.getElementById("root")); // creates a root for the react to execute from (passing in root id of the div)
+        root.render(heading);
+    </script>
+  </body>
+</html>  
