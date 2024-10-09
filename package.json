@@ -1,0 +1,32 @@
+{
+  "name": "react",
+  "version": "1.0.0",
+  "description": "repo made while learning react",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html",
+    "test": "jest"
+  },
+  "scriptsComments": {
+    "start": "build app in dev mode",
+    "build": "build app in production mode"
+  },
+  "repository": {
+    "type": "git",
+    "url": "(https://github.com/booringreader/\"tut-react.git\")"
+  },
+  "author": "booringreader",
+  "license": "ISC",
+  "homepage": "https://github.com/booringreader/\"tut-react.git\"#readme",
+  "devDependencies": {
+    "parcel": "^2.12.0",
+    "process": "^0.11.10"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "browserslist": [
+    "last 2 versions"
+  ]
+}
