@@ -14,6 +14,8 @@ const HeadingComponent = () => (
         <div className="container">
             <h1>functional component</h1> {/* returns <h1></h1> */}
             <Title />
+            {<Title()>}
+            <Title> </Title>
         </div>
     );
 //const HeadingComponent = () => (
