@@ -19,7 +19,14 @@
     padding: 20px;
 }
 
-
+.filter-btn {
+    margin: 5px;
+    padding: 3px;
+    cursor: pointer;
+    color:whitesmoke;
+    background-color:red;
+    border-radius: 6px;
+}
 .search {
     border: 1px solid black;
     padding: 3px;
