@@ -1,5 +1,6 @@
 import RestaurantCard from "./RestaurantCard";
 import { useEffect, useState } from "react";
+import Shimmer from "./Shimmer";
 
 const Body = () => {
     // local state variable (scope inside the component)
@@ -8,6 +9,7 @@ const Body = () => {
     // by convention this second variable should be named set<name of list>
     // ? this variable setlistRest is used to update the list
     const [listRest, setlistRest] = useState([]); // default values to listRest state variable are passed through useState()
+    const [searchText, setsearchText] = useState([]);
 
     useEffect(() => {
         fetchData();
@@ -18,23 +20,32 @@ const Body = () => {
 
         const json = await data.json();
         console.log(json);
-        setlistRest(json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants)
+        setlistRest(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants) // optional chaining
     };
-    return (
-        <div className="body">
-            <div className="filter">
-                <button className="filter-btn" onClick={() => {
-                    const filteredList = listRest.filter((res) => res.info.avgRating > 4.3);
-                    setlistRest(filteredList); // ? update listRest with filteredList
-                }}>Top Restaurants</button>
-            </div>
+
+    return listRest.length === 0 ? (<Shimmer />) : (<div className="body">
+        <div className="filter">
             <div className="search">
-                search
+                <input type="text" className="search-box" value={searchText} onChange={(e) =>
+                    setsearchText(e.target.value)}></input>
+                <button onClick={() => {
+                    const filteredRes = listRest.filter((res) => res.info.name.includes(searchText)
+                    );
+
+                    setlistRest(filteredRes);
+                }}>Search</button>
             </div>
-            <div className="res-container">
-                {listRest.map(restaurant => (<RestaurantCard key={restaurant.info.id} resData={restaurant} />))}
-            </div>
+
+            <button className="filter-btn" onClick={() => {
+                const filteredList = listRest.filter((res) => res.info.avgRating > 4.3);
+                setlistRest(filteredList); // ? update listRest with filteredList
+            }}>Top Restaurants</button>
         </div>
+        <div className="res-container">
+            {listRest.map(restaurant => (
+                <RestaurantCard key={restaurant.info.id} resData={restaurant} />))}
+        </div>
+    </div >
     );
 };
 
