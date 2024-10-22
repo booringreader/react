@@ -3,46 +3,50 @@ import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 
 const Body = () => {
-    // local state variable (scope inside the component)
-    // ? declaring a list that catches the state variable returned by useState()
-    // ? listRest list is not mutable, hence a second argument has to be passed 
-    // by convention this second variable should be named set<name of list>
-    // ? this variable setlistRest is used to update the list
+    // ? state variable declaration
     const [listRest, setlistRest] = useState([]); // default values to listRest state variable are passed through useState()
     const [searchText, setsearchText] = useState([]);
+    const [searchRest, setsearchRest] = useState([]);
 
+    // ? fetching data from API 
     useEffect(() => {
         fetchData();
     }, []);
 
+    // ? function declaring method to fetch data from API
     const fetchData = async () => {
         const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.65200&lng=77.16630&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
 
         const json = await data.json();
         console.log(json);
         setlistRest(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants) // optional chaining
+        setsearchRest(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
     };
 
+    // ? contents of the body component
     return listRest.length === 0 ? (<Shimmer />) : (<div className="body">
         <div className="filter">
             <div className="search">
+                {/* ? search bar */}
                 <input type="text" className="search-box" value={searchText} onChange={(e) =>
                     setsearchText(e.target.value)}></input>
-                <button onClick={() => {
-                    const filteredRes = listRest.filter((res) => res.info.name.includes(searchText)
-                    );
 
-                    setlistRest(filteredRes);
+                {/* search bar button */}
+                <button onClick={() => {
+                    const filteredRes = listRest.filter((res) => res.info.name.toLowerCase().includes(searchText.toLowerCase())
+                    );
+                    setsearchRest(filteredRes);
                 }}>Search</button>
             </div>
-
+                
+                {/*"top restaurant" filter button */}
             <button className="filter-btn" onClick={() => {
                 const filteredList = listRest.filter((res) => res.info.avgRating > 4.3);
-                setlistRest(filteredList); // ? update listRest with filteredList
+                setsearchRest(filteredList); // ? update listRest with filteredList
             }}>Top Restaurants</button>
         </div>
         <div className="res-container">
-            {listRest.map(restaurant => (
+            {searchRest.map(restaurant => (
                 <RestaurantCard key={restaurant.info.id} resData={restaurant} />))}
         </div>
     </div >
