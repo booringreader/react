@@ -1,11 +1,10 @@
-import User from "./User";
 import UserClass from "./UserClass";
 
 const About = () => {
    return (
       <div>
          <h1>react routing configuration test</h1>
-         <div className="users">
+         <div className="user">
             <ul>
                <li><UserClass name={"@boorignreader (UserClass)"} /></li>
             </ul>

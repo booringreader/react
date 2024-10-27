@@ -40,12 +40,12 @@ class UserClass extends React.Component {
         const { name, location, avatar_url, login } = this.state.userinfo;
         console.log("render complete");
         return (
-            <div className="user-card" >
-                <div className="about-image-container">
+            <div className="user-card w-[300px] rounded-md border border-solid border-black m-5 p-4 bg-gray-200" >
+                <div className="aboutImage-container overflow-hidden rounded-lg">
                     <img className="about-image" src={avatar_url} />
                 </div>
 
-                <h2>username: {name}</h2>
+                <h2 className="py-2 font-bold text-lg">username: {name}</h2>
                 <h3>location: {location}</h3>
                 <h3>userID: {login}</h3>
             </div>
