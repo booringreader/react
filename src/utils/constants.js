@@ -6,4 +6,4 @@ export const MENU_URL = "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_M
 
 export const GITHUB_USER_URL = "https://api.github.com/users/booringreader";
 
-export const GITHUB_USER_URL_IMAGE= ""
+export const ITEM_IMAGE = "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/" // ItemLIst

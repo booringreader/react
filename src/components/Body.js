@@ -1,4 +1,4 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { withPromotedLabel } from "./RestaurantCard";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom"
@@ -10,15 +10,15 @@ const Body = () => {
     const [searchText, setsearchText] = useState([]);
     const [searchRest, setsearchRest] = useState([]);
 
-    // ? fetching data from API 
-    useEffect(() => {
+    const PromotedRestaurant = withPromotedLabel(RestaurantCard);
+
+    useEffect(() => { //? fetching data from API 
         fetchData();
     }, []);
 
     // ? function declaring method to fetch data from API
     const fetchData = async () => {
         const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.65200&lng=77.16630&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
-
         const json = await data.json();
 
         setlistRest(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants) // optional chaining
@@ -54,11 +54,13 @@ const Body = () => {
                     }}>Top Restaurants
                     </button>
                 </div>
-                            </div>
+            </div>
 
             <div className="resCard-container flex flex-wrap">
                 {searchRest.map(restaurant => (
-                    <Link key={restaurant.info.id} to={"/restaurants/" + restaurant.info.id}><RestaurantCard resData={restaurant} /></Link>))}
+                    <Link key={restaurant.info.id} to={"/restaurants/" + restaurant.info.id}>
+                        {restaurant.info.avgRating < 4.3 ? <PromotedRestaurant resData={restaurant} /> : <RestaurantCard resData={restaurant} />}
+                    </Link>))}
             </div>
         </div >
     );
