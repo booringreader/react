@@ -1,17 +1,18 @@
 import ItemList from "./ItemList";
+import {useState} from "react";
 
-const MenuCategory = (props) => {
+const MenuCategory = ({data, showItems, setshowIndex}) => {
     const handleClick = () => {
-        console.log("clicked")
-    }
+        setshowIndex()
+    };
     return (
         <div>
             <div className="header w-6/12 mx-auto my-4 shadow-lg p-4 bg-gray-100 rounded-sm">
-                <div className="flex justify-between" onClick={handleClick}>
-                    <span className="font-bold text-md">{props.data.title}({props.data.itemCards.length})</span>
+                <div className="flex justify-between cursor-pointer" onClick={handleClick}>
+                    <span className="font-bold text-md">{data.title}({data.itemCards.length})</span>
                     <span>⬇</span>
                 </div>
-                <ItemList items={props.data.itemCards} />
+                {showItems && <ItemList items={data.itemCards} />}
             </div>
         </div>
     )

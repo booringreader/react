@@ -1,8 +1,9 @@
 import RestaurantCard, { withPromotedLabel } from "./RestaurantCard";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom"
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
     // ? state variable declaration
@@ -25,6 +26,8 @@ const Body = () => {
         setsearchRest(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
     };
 
+    const {loggedInUser, setUserName} = useContext(UserContext);
+
     const onlineStatus = useOnlineStatus();
     if (onlineStatus === false)
         return (
@@ -39,7 +42,7 @@ const Body = () => {
                     {/* ? search bar */}
                     <input type="text" className="border border-solid border-black rounded-md" value={searchText} onChange={(e) =>
                         setsearchText(e.target.value)}></input>
-                    <button className="px-3 bg-green-200 m-4 rounded-lg" onClick={() => {
+                    <button className="px-3 bg-green-200 m-2 rounded-lg" onClick={() => {
                         const filteredRes = listRest.filter((res) => res.info.name.toLowerCase().includes(searchText.toLowerCase())
                         );
                         setsearchRest(filteredRes);
@@ -50,9 +53,13 @@ const Body = () => {
                     {/*"top restaurant" filter button */}
                     <button className="search px-4 py-1 bg-cyan-200 rounded-lg" onClick={() => {
                         const filteredList = listRest.filter((res) => res.info.avgRating > 4.3);
-                        setsearchRest(filteredList); // ? update listRest with filteredList
+                        setsearchRest(filteredList); // ?  with filteredList
                     }}>Top Restaurants
                     </button>
+                </div>
+                <div className="m-2 p-4 flex items-center">
+                    <label>Username: </label>
+                    <input className="border border-black mx-2 rounded-md pl-2 pb-1" value={loggedInUser} onChange={(e) => setUserName(e.target.value || username)}></input>
                 </div>
             </div>
 

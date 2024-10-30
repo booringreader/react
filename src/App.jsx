@@ -1,4 +1,4 @@
-import React, {lazy, Suspense} from "react";
+import React, { lazy, Suspense, useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header.js";
 import RestaurantCard from "./components/RestaurantCard.js"
@@ -8,18 +8,31 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Contact from "./components/Contact.js";
 import Error from "./components/Error.js";
 import RestaurantMenu from "./components/RestaurantMenu.js";
+import UserContext from "./utils/UserContext.js";
 // import Instamart from "./components/Instamart.js";
 
 const Instamart = lazy(() => import("./components/Instamart.js"));
 const About = lazy(() => import("./components/About.js"));
 
 const AppLayout = () => {
-    return <div className="app">
-        <Header />
-        <Outlet />
-    </div>
-}
+    const [username, setUserName] = useState();
+    useEffect(() => {
+        // fetch data from API
+        const data = {
+            name: "perman",
+        }
+        setUserName(data.name);
+    }, []);
 
+   return(
+    <UserContext.Provider value={{ loggedInUser: username, setUserName }}>
+        <div className="app"> {/* entire app wrapped around the context */}
+            <Header />
+            <Outlet />
+        </div>
+    </UserContext.Provider>
+   ) ;
+};
 const appRouter = createBrowserRouter([
     {
         path: "/",
