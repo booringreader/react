@@ -10,6 +10,8 @@ import Error from "./components/Error.js";
 import RestaurantMenu from "./components/RestaurantMenu.js";
 import UserContext from "./utils/UserContext.js";
 // import Instamart from "./components/Instamart.js";
+import { Provider } from "react-redux";
+import appStore from "./redux/appStore.js";
 
 const Instamart = lazy(() => import("./components/Instamart.js"));
 const About = lazy(() => import("./components/About.js"));
@@ -24,15 +26,18 @@ const AppLayout = () => {
         setUserName(data.name);
     }, []);
 
-   return(
-    <UserContext.Provider value={{ loggedInUser: username, setUserName }}>
-        <div className="app"> {/* entire app wrapped around the context */}
-            <Header />
-            <Outlet />
-        </div>
-    </UserContext.Provider>
-   ) ;
+    return (
+        <Provider store={appStore}>
+            <UserContext.Provider value={{ loggedInUser: username, setUserName }}>
+                <div className="app"> {/* entire app wrapped around the context */}
+                    <Header />
+                    <Outlet />
+                </div>
+            </UserContext.Provider>
+        </Provider>
+    );
 };
+
 const appRouter = createBrowserRouter([
     {
         path: "/",
