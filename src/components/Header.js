@@ -4,6 +4,7 @@ import {Link} from "react-router-dom"
 import useOnlineStatus from "../utils/useOnlineStatus";
 import UserContext from "../utils/UserContext";
 import { useSelector } from "react-redux";
+import Cart from "./Cart";
 
 const Header = () => {
     const [btnName, setbtnName] = useState("Login");
@@ -22,11 +23,21 @@ const Header = () => {
             <div className="flex items-center">
                 <ul className="flex">
                     <li className="px-4">Online: {onlineStatus ? "🟢" : "🔴"}</li>
-                    <li className="px-4"><Link to="/">Home</Link></li>
-                    <li className="px-4"><Link to="/grocery">Instamart</Link></li>
-                    <li className="px-4"><Link to="about">About Us</Link></li>
-                    <li className="px-4"><Link to="contact">Contact Us</Link></li>
-                    <li className="px-4 font-bold text-lg">Cart({cartItems.length})</li>
+                    <li className="px-4">
+                        <Link to="/">Home</Link>
+                    </li>
+                    <li className="px-4">
+                        <Link to="/grocery">Instamart</Link>
+                        </li>
+                    <li className="px-4">
+                        <Link to="about">About Us</Link>
+                    </li>
+                    <li className="px-4">
+                        <Link to="contact">Contact Us</Link>
+                    </li>
+                    <li className="px-4 font-bold text-lg">
+                        <Link to="/cart">Cart({cartItems.length})</Link> 
+                    </li>
                     <button className="login border px-2 rounded-lg bg-white border-black" onClick={() => {
                         btnName === "Login" ? setbtnName("Logout") : setbtnName("Login");
                     }}>{btnName}</button>
