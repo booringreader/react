@@ -1,4 +1,0 @@
-1. tailwind for all pages
-2. RTK query
-// ? component(div(div(div)))
-

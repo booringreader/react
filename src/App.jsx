@@ -13,6 +13,7 @@ import UserContext from "./utils/UserContext.js";
 import { Provider } from "react-redux";
 import appStore from "./redux/appStore.js";
 import Cart from "./components/Cart.js"
+import Stripes from "./components/Stripes.js";
 
 const Instamart = lazy(() => import("./components/Instamart.js"));
 const About = lazy(() => import("./components/About.js"));
@@ -31,7 +32,9 @@ const AppLayout = () => {
         <Provider store={appStore}>
             <UserContext.Provider value={{ loggedInUser: username, setUserName }}>
                 <div className="app"> {/* entire app wrapped around the context */}
-                    <Header />
+                    <Stripes>
+                        <Header />
+                    </Stripes>
                     <Outlet />
                 </div>
             </UserContext.Provider>
